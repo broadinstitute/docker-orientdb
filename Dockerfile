@@ -6,8 +6,8 @@ EXPOSE 2480
 EXPOSE 2424
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    JAVA_HOME /usr/lib/jvm/java-7-oracle \
-    ORIENTDB_VERSION 2.1.0
+    JAVA_HOME=/usr/lib/jvm/java-7-oracle \
+    ORIENTDB_VERSION=2.1.0
 
 RUN apt-get update && \
     apt-get -yq install \
