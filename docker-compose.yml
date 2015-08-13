@@ -1,0 +1,11 @@
+orientdb:
+  image: broadinstitute/orientdb:2.1.0
+  ports:
+    - "2424:2424"
+    - "2480:2480"
+  environment:
+    ROOT_PASSWORD: 'foo'
+  volumes:
+    - /orientdb/config:/opt/orientdb/config
+    - /orientdb/databases:/opt/orientdb/databases
+    - /orientdb/backup:/opt/orientdb/backup
