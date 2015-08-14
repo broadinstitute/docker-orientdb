@@ -4,7 +4,7 @@ orientdb:
     - "2424:2424"
     - "2480:2480"
   environment:
-    ROOT_PASSWORD: 'foo'
+    ORIENTDB_ROOT_PASSWORD: 'foo'
   volumes:
     - /orientdb/config:/opt/orientdb/config
     - /orientdb/databases:/opt/orientdb/databases

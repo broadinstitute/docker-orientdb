@@ -8,7 +8,22 @@ This repository is used to create an [OrientDB][1] [Docker][2] image.  This imag
 Running orientdb
 ----------------
 
-To start [OrientDB][1], run:
+The docker image contains a unconfigured orientdb installation and for running it you need to provide your own config folder from which [OrientDB][1] will read its startup settings.  To get an initial set of configurations from this setup, you can do something like the following:
+
+```bash
+# Run the container stock with no volumes mounted
+docker run --name orientdb -d broadinstitute/orientdb:latest
+# Go to the path that will eventually hold your configs
+cd $CONFIG_PATH
+# Copy the config directory from the stock container
+docker cp orientdb:/opt/orientdb/config .
+# Move all the files from that local "config" directory up a level
+mv config/* .
+# Remove the temporary "config" directory
+rmdir config
+```
+
+The directory at **$CONFIG_PATH** should now have a copy of the stock config files that you can now edit to suit your own needs. To start [OrientDB][1] using volume mounts to keep your data safe outside the container, run:
 
 ```bash
 docker run --name orientdb -d \
@@ -17,8 +32,6 @@ docker run --name orientdb -d \
   -v $BACKUP_PATH:/opt/orientdb/backup \
   -p 2424 -p 2480 broadinstitute/orientdb:latest
 ```
-
-The docker image contains a unconfigured orientdb installation and for running it you need to provide your own config folder from which [OrientDB][1] will read its startup settings.
 
 The same applies for the databases folder which if local to the running container would go away as soon as it died/you killed it.
 
