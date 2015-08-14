@@ -53,6 +53,14 @@ docker run --rm -it \
   /opt/orientdb/bin/console.sh
 ```
 
+or, if you already have OrientDB running with the correct volume mounts, etc. (assumed to be named **orientdb** in this example) and just want to run the console from the running container:
+
+```bash
+docker exec -it \
+  orientdb \
+  /opt/orientdb/bin/console.sh
+```
+
 [1]: http://www.orientdb.org "OrientDB"
 [2]: https://www.docker.com/ "Docker"
 [3]: http://phusion.github.io/baseimage-docker/ "Phusion Baseimage"
