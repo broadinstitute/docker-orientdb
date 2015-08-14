@@ -12,9 +12,9 @@ To start [OrientDB][1], run:
 
 ```bash
 docker run --name orientdb -d \
-  -v <config_path>:/opt/orientdb/config \
-  -v <databases_path>:/opt/orientdb/databases \
-  -v <backup_path>:/opt/orientdb/backup \
+  -v $CONFIG_PATH:/opt/orientdb/config \
+  -v $DATABASES_PATH:/opt/orientdb/databases \
+  -v $BACKUP_PATH:/opt/orientdb/backup \
   -p 2424 -p 2480 broadinstitute/orientdb:latest
 ```
 
@@ -33,9 +33,9 @@ Running the orientdb console
 
 ```bash
 docker run --rm -it \
-  -v <config_path>:/opt/orientdb/config \
-  -v <databases_path>:/opt/orientdb/databases \
-  -v <backup_path>:/opt/orientdb/backup \
+  -v $CONFIG_PATH:/opt/orientdb/config \
+  -v $DATABASES_PATH:/opt/orientdb/databases \
+  -v $BACKUP_PATH:/opt/orientdb/backup \
   broadinstitute/orientdb:latest \
   /opt/orientdb/bin/console.sh
 ```
