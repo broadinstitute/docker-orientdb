@@ -65,36 +65,45 @@ OPT_p="admin"
 OPT_d=""
 OPT_r=0
 OPT_i=0
-
-# tempfile 
-TMPFILE=`mktemp -p /root -t ${progname}-XXXXXX`
+PID=$$
 
 usage() {
-    echo "Usage"
-}
+   echo
+   echo "Usage: $progname -d <dbname> [-r][-c] [-u <dbusername>] [-p <dbpassword>] [-f <full-path-backup-file>] [-x <backup|restore|export|import>] "
+   echo 
+   echo " <dbname>: name of database to run against"
+   echo " -r: remove database if it exists for restore"
+   echo " -c: Create database for import"
+   echo " -x <command-to-run> "
+   echo " <dbusername>, <dbpassword>: database username/password (default admin/admin)"
+   echo " <full-path-backup-file>: full pathname to write backup/export to or read from for import/restore"
+   echo "   Default for backup: <dbname>-backup-YYYYMMDD-HHMMSS.zip"
+   echo "   Default for export: <dbname>-export-YYYYMMDD-HHMMSS.gz"
+   echo "   Default for restore:: <dbname>-backup.zip"
+   echo "   Default for import:: <dbname>-export.gz"
+   echo
 
-cleanup() {
-   rm -f ${TMPFILE}
 }
 
 # process getopts
-while getopts :d:u:p:f:hri FLAG; do
+while getopts :d:u:p:f:x:hrc FLAG; do
    case $FLAG in
      d)  OPT_d="$OPTARG"
-     ;; 
-     u)  OPT_u="$OPTARG"
-     ;; 
-     p)  OPT_p="$OPTARG"
      ;; 
      f)  OPT_f="$OPTARG"
      ;; 
      h)  usage
-        cleanup
         exit 1
      ;;
+     i)  OPT_c=1
+     ;;
+     p)  OPT_p="$OPTARG"
+     ;; 
      r)  OPT_r=1
      ;;
-     i)  OPT_i=1
+     u)  OPT_u="$OPTARG"
+     ;; 
+     x)  progname="plocal-${OPTARG}"
      ;;
     esac
 done
@@ -104,8 +113,16 @@ shift $((OPTIND-1))
 # set rest of line to be passed to SQL command
 # restargs="$restargs $*"
 
+# tempfile 
+TMPFILE="/root/${progname}-${PID}"
+
+cleanup() {
+   rm -f ${TMPFILE}
+}
+
 if [ -z "${OPT_d}" ]
 then
+   echo
    echo "Must specify database name via: -d <dbname> "
    usage
    cleanup
