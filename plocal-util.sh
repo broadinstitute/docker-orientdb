@@ -155,7 +155,7 @@ fi
 
 case "${progname}" in
    # BACKUP DATABASE
-   "backup")
+   "plocal-backup")
        #  FIRST CONNECT ; DISCONNECT to see if its available for backup
        cat ${START} ${CONN} ${DISC} | sed -e "s;DBPATH;${DBPATH};g" -e "s;DBNAME;${OPT_d};g" -e "s;DBUSER;${OPT_u};g" -e "s;DBPASSWORD;${OPT_p};g" -e "s;BACKUPPATH;${BACKUPPATH};g" -e "s;BACKUPFILE;${OPT_f};g" > ${TMPFILE}
        if [ -s "${TMPFILE}" ]
@@ -187,7 +187,7 @@ case "${progname}" in
        fi
      ;;
 
-   "restore")
+   "plocal-restore")
        #  FIRST CONNECT ; DISCONNECT to see if database exists
        cat ${START} ${CONN} ${DISC} | sed -e "s;DBPATH;${DBPATH};g" -e "s;DBNAME;${OPT_d};g" -e "s;DBUSER;${OPT_u};g" -e "s;DBPASSWORD;${OPT_p};g" -e "s;BACKUPPATH;${BACKUPPATH};g" -e "s;BACKUPFILE;${OPT_f};g" > ${TMPFILE}
        if [ -s "${TMPFILE}" ]
@@ -252,12 +252,12 @@ case "${progname}" in
           fi
        fi
      ;;
-   "export")
+   "plocal-export")
        #  CONNECT ; DISCONNECT
        #   if failed error reporting db connection failed
        #  CONNECT ; EXPORT {rest of command args}
      ;;
-   "import")
+   "plocal-import")
        # CONNECT ; DISCONNECT
        # if failed error unless -c flag (create db)
        #    if -c flag
