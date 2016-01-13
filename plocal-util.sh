@@ -134,10 +134,10 @@ if [ -z "${OPT_f}" ]
 then
       case "${progname}" in
       "plocal-backup")
-          OPT_f="${OPT_d}-${progname}-${TSTAMP}.zip"
+          OPT_f="${OPT_d}-backup-${TSTAMP}.zip"
           ;;
       "plocal-export")
-          OPT_f="${OPT_d}-${progname}-${TSTAMP}.gz"
+          OPT_f="${OPT_d}-export-${TSTAMP}.gz"
           ;;
       "plocal-import")
           OPT_f="${OPT_d}-export.gz"
