@@ -2,6 +2,9 @@ FROM phusion/baseimage:0.9.17
 
 MAINTAINER Andrew Teixeira <teixeira@broadinstitute.org>
 
+COPY plocal-util.sh /usr/local/bin/
+ADD templates/* /usr/local/lib/orientdb/
+
 EXPOSE 2480
 EXPOSE 2424
 
@@ -26,6 +29,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/* && \
     rm -rf /var/tmp/*
+
+RUN chmod 0755 /usr/local/bin/plocal-util.sh
+RUN cd /usr/local/bin && ln -s plocal-util.sh plocal-restore && ln -s plocal-util.sh plocal-backup
 
 ADD run.sh /etc/service/orientdb/run
 
